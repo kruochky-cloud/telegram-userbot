@@ -1,15 +1,16 @@
 from telethon import TelegramClient, events
 from telethon.errors import YouBlockedUserError, FloodWaitError
+from telethon.sessions import StringSession
 import asyncio
 import os
 
-api_id_1 = int(os.environ["35288684"])
-api_hash_1 = os.environ["44a65f5a5091d98cd5048301237ca8ee "]
+api_id_1 = int(os.environ["API_ID_1"])
+api_hash_1 = os.environ["API_HASH_1"]
+session_1 = os.environ["SESSION_1"]
 
-api_id_2 = int(os.environ["32479322"])
-api_hash_2 = os.environ["36b1f55abed381ee148331a29cb3e26"]
-
-SESSION_DIR = os.environ.get("SESSION_DIR", "/data")
+api_id_2 = int(os.environ["API_ID_2"])
+api_hash_2 = os.environ["API_HASH_2"]
+session_2 = os.environ["SESSION_2"]
 
 
 def attach_handlers(client, label):
@@ -59,10 +60,8 @@ def attach_handlers(client, label):
 
 
 async def main():
-    os.makedirs(SESSION_DIR, exist_ok=True)
-
     client1 = TelegramClient(
-        os.path.join(SESSION_DIR, "session1"),
+        StringSession(session_1),
         api_id_1,
         api_hash_1,
         auto_reconnect=True,
@@ -71,7 +70,7 @@ async def main():
     )
 
     client2 = TelegramClient(
-        os.path.join(SESSION_DIR, "session2"),
+        StringSession(session_2),
         api_id_2,
         api_hash_2,
         auto_reconnect=True,
